@@ -1,3 +1,5 @@
+module Ej6 where
+
 data ExpA = Cte Int
     | Sum ExpA ExpA
     | Prod ExpA ExpA
