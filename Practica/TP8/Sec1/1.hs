@@ -1,5 +1,5 @@
 length' :: [a] -> Int
-lenght' [] = 0
+length' [] = 0
 length' (x:xs) = 1 + length' xs
 
 sum' :: [Int] -> Int
@@ -30,29 +30,32 @@ count' :: (a -> Bool) -> [a] -> Int
 count' _ [] = 0
 count' f (x:xs) =
     if f x
-    then 1 + count' f xs
+        then 1 + count' f xs
     else count' f xs
 
 subset' :: Eq a => [a] -> [a] -> Bool
 subset' [] _ = True
-subset' _ [] = False
-subset' (x:xs) (y:ys) =
-    if x == y
-    then subset' xs (y:ys)
-    else subset' (x:xs) ys
+subset' (x:xs) l = elem' x l && subset' xs l
 
 (+-+) :: [a] -> [a] -> [a]
 (+-+) [] l = l
-(+-+) (x:xs) l = x:((+-+) xs l)
+(+-+) (x:xs) l = x:(xs +-+ l)
 
 reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = reverse' xs ++ [x]
 
 zip' :: [a] -> [b] -> [(a, b)]
-zip' [] [] = []
-zip' (x:xs) (y:ys) = (x, y):(zip' xs ys)
+zip' [] _ = []
+zip' (x:xs) l = 
+    if (length' l > 0)
+        then let (y:ys) = l
+             in (x, y):(zip' xs ys)
+    else []
 
 unzip' :: [(a, b)] -> ([a], [b])
-unzip' [] = []
--- ??? Check
+unzip' [] = ([], [])
+unzip' (x:xs) = let p = unzip' xs
+                in let pa = (fst x):(fst p)
+                       pb = (snd x):(snd p)
+                   in (pa, pb)

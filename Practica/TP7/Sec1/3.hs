@@ -3,29 +3,41 @@ data Ingrediente = Aceitunas Int | Anchoas | Cebolla | Jamon | Queso | Salsa
 
 cantidadDeCapas :: Pizza -> Int
 cantidadDeCapas Prepizza = 0
-cantidadDeCapas Capa _ p = 1 + cantidadDeCapas p
+cantidadDeCapas (Capa _ p) = 1 + cantidadDeCapas p
 
 cantidadDeAceitunas :: Pizza -> Int
 cantidadDeAceitunas Prepizza = 0
-cantidadDeAceitunas Capa (Aceitunas n) p = n + cantidadDeAceitunas p
-cantidadDeAceitunas Capa _ p = cantidadDeAceitunas p
+cantidadDeAceitunas (Capa i p) = contarAceitunasEnIng i + cantidadDeAceitunas p
+
+contarAceitunasEnIng :: Ingrediente -> Int
+contarAceitunasEnIng (Aceitunas n) = n
+contarAceitunasEnIng _ = 0
 
 duplicarAceitunas :: Pizza -> Pizza
 duplicarAceitunas Prepizza = Prepizza
-duplicarAceitunas Capa (Aceitunas n) p = Capa Aceitunas (2 * n) (duplicarAceitunas p)
-duplicarAceitunas Capa _ p = duplicarAceitunas p
+duplicarAceitunas (Capa i p) = Capa (duplicAcEnIng i) (duplicarAceitunas p)
+
+duplicAcEnIng :: Ingrediente -> Ingrediente
+duplicAcEnIng (Aceitunas n) = Aceitunas (2 * n)
+duplicAcEnIng ing = ing
 
 sinLactosa :: Pizza -> Pizza
 sinLactosa Prepizza = Prepizza
-sinLactosa Capa Queso p =  sinLactosa p
-sinLactosa Capa i p = Capa i (sinLactosa p)
+sinLactosa (Capa ing p) =
+    if tieneLactosa ing
+      then sinLactosa p 
+      else Capa ing (sinLactosa p)
+
+tieneLactosa :: Ingrediente -> Bool
+tieneLactosa Queso = True
+tieneLactosa _ = False
 
 aptaIntolerantesLactosa :: Pizza -> Bool
 aptaIntolerantesLactosa p = p == sinLactosa p
 
 agregaAceitunasCorrectamente :: Pizza -> Bool
 agregaAceitunasCorrectamente Prepizza = True
-agregaAceitunasCorrectamente Capa (Aceitunas n) p = (n > 0) && agregaAceitunasCorrectamente p
+agregaAceitunasCorrectamente (Capa (Aceitunas n) p) = (n > 0) && agregaAceitunasCorrectamente p
 
 conDescripcionMejorada :: Pizza -> Pizza
 conDescripcionMejorada Prepizza = Prepizza
