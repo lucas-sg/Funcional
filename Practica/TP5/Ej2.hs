@@ -1,3 +1,5 @@
+module Ej2 where
+
 data DigBin = O | I
 
 dbAsInt :: DigBin -> Int
