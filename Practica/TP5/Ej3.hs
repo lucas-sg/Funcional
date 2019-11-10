@@ -1,3 +1,5 @@
+module Ej3 where
+
 data DigDec = D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9
 
 ddAsInt :: DigDec -> Int
@@ -25,25 +27,25 @@ ddOfInt 8 = D8
 ddOfInt 9 = D9
 
 nextDD :: DigDec -> DigDec
-nextDD D0 = 1
-nextDD D1 = 2
-nextDD D2 = 3
-nextDD D3 = 4
-nextDD D4 = 5
-nextDD D5 = 6
-nextDD D6 = 7
-nextDD D7 = 8
-nextDD D8 = 9
-nextDD D9 = 0
+nextDD D0 = D1
+nextDD D1 = D2
+nextDD D2 = D3
+nextDD D3 = D4
+nextDD D4 = D5
+nextDD D5 = D6
+nextDD D6 = D7
+nextDD D7 = D8
+nextDD D8 = D9
+nextDD D9 = D0
 
 prevDD :: DigDec -> DigDec
-prevDD D0 = 9
-prevDD D1 = 0
-prevDD D2 = 1
-prevDD D3 = 2
-prevDD D4 = 3
-prevDD D5 = 4
-prevDD D6 = 5
-prevDD D7 = 6
-prevDD D8 = 7
-prevDD D9 = 8
+prevDD D0 = D9
+prevDD D1 = D0
+prevDD D2 = D1
+prevDD D3 = D2
+prevDD D4 = D3
+prevDD D5 = D4
+prevDD D6 = D5
+prevDD D7 = D6
+prevDD D8 = D7
+prevDD D9 = D8

@@ -1,6 +1,7 @@
 module Ej2 where
 
 data DigBin = O | I
+    deriving Show
 
 dbAsInt :: DigBin -> Int
 dbAsInt O = 0
