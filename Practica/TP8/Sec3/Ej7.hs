@@ -1,5 +1,5 @@
 import Ej1
-import Ej6
+import TP8.Sec3.Ej6
 
 data ExpS = CteS N
           | SumS ExpS ExpS
