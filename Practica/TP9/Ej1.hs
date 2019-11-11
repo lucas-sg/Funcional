@@ -1,7 +1,14 @@
+module TP9.Ej1 where
+
 import TP8.Sec3.Ej6
 
-data EA = Const Int | BOp BinOp EA EA
-data BinOp = SumOp | MulOp
+data EA = Const Int
+        | BOp BinOp EA EA
+    deriving Show
+
+data BinOp = SumOp 
+           | MulOp
+    deriving Show
 
 evalEA :: EA -> Int
 evalEA (Const n)      = n
